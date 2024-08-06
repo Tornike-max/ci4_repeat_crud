@@ -10,7 +10,9 @@
         </div>
         <div class="max-w-md mx-auto bg-white p-5 rounded-lg shadow-lg">
             <h1 class="text-2xl font-bold mb-5">Edit Student</h1>
-            <form method='post' action="/students/update/<?= $student['id'] ?>">
+            <form method='post' action="/students/update/<?= $student['id'] ?>" enctype="multipart/form-data">
+                <?= csrf_field() ?>
+
                 <input type="hidden" name="_method" value="PUT" />
 
                 <div class="mb-4">

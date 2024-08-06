@@ -18,7 +18,7 @@ class StudentController extends BaseController
     public function index()
     {
         $studentsObject = $this->db->table('students');
-        $studentsObject->select('students.id,students.name,students.email,students.subject_id,subjects.subject_name,subjects.subject_duration');
+        $studentsObject->select('students.id,students.name,students.student_image,students.email,students.subject_id,subjects.subject_name,subjects.subject_duration');
         $studentsObject->join('subjects', 'subjects.id = students.subject_id');
         $students = $studentsObject->orderBy('id', 'desc')->get()->getResultArray();
 
@@ -59,7 +59,8 @@ class StudentController extends BaseController
         $rules = [
             'name' => 'required',
             'email' => 'required',
-            'subject_id' => 'required'
+            'subject_id' => 'required',
+            'student_image' => 'permit_empty|is_image[student_image]'
         ];
 
         if (!$this->validate($rules)) {
@@ -68,6 +69,19 @@ class StudentController extends BaseController
         }
 
         $validatedData = $this->validator->getValidated();
+
+        $file = $this->request->getFile('student_image');
+
+        if (is_uploaded_file($file) && !empty($file)) {
+            $name = $file->getName();
+            $nameArr = explode('.', $name);
+            $namePath = time() . '.' . end($nameArr);
+
+            if ($file->move('images', $namePath)) {
+                $validatedData['student_image'] = $namePath;
+            }
+        }
+
         $model = model(Student::class);
 
         $model->insert($validatedData);

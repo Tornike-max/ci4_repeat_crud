@@ -12,7 +12,7 @@ class Student extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['name', 'email', 'subject_id'];
+    protected $allowedFields    = ['name', 'email', 'student_image', 'subject_id'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

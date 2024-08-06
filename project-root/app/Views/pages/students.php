@@ -26,7 +26,7 @@
                 <?php foreach ($students as $student) : ?>
                     <tr class="w-full border-b border-gray-200">
                         <td class="py-2 px-4 ">
-                            <img class="w-14 rounded-lg" src="" />
+                            <img class="w-14 rounded-lg" src="<?= $student['student_image'] ? '/images/' . $student['student_image'] : 'https://placehold.co/200' ?>" alt="image" />
                         </td>
                         <td class="py-2 px-4 ">
                             <?= $student['name'] ?>
@@ -46,6 +46,7 @@
                                 Edit
                             </a>
                             <form method="post" action="/students/delete/<?= $student['id'] ?>">
+                                <?= csrf_field() ?>
                                 <input type="hidden" name="_method" value="DELETE" />
                                 <button type="submit" class="py-2 px-3 rounded-md bg-red-500 text-white">
                                     Delete
