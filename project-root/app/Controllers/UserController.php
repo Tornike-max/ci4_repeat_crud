@@ -88,4 +88,9 @@ class UserController extends BaseController
         session()->destroy();
         return redirect('user/login');
     }
+
+    public function noAccess()
+    {
+        return view('pages/auth/noAccessPage');
+    }
 }

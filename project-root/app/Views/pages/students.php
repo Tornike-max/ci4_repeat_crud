@@ -42,16 +42,19 @@
                         </td>
                         <td class="py-2 px-4 flex items-center justify-start gap-2">
                             <a href="/students/show/<?= $student['id'] ?>" class="py-2 px-3 rounded-md bg-blue-500 text-white">Show</a>
-                            <a href="/students/edit/<?= $student['id'] ?>" class="py-2 px-3 rounded-md bg-blue-500 text-white">
-                                Edit
-                            </a>
-                            <form method="post" action="/students/delete/<?= $student['id'] ?>">
-                                <?= csrf_field() ?>
-                                <input type="hidden" name="_method" value="DELETE" />
-                                <button type="submit" class="py-2 px-3 rounded-md bg-red-500 text-white">
-                                    Delete
-                                </button>
-                            </form>
+                            <?php if (session()->get('userSessionId') !== null) : ?>
+                                <a href="/students/edit/<?= $student['id'] ?>" class="py-2 px-3 rounded-md bg-blue-500 text-white">
+                                    Edit
+                                </a>
+                                <form method="post" action="/students/delete/<?= $student['id'] ?>">
+                                    <?= csrf_field() ?>
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button type="submit" class="py-2 px-3 rounded-md bg-red-500 text-white">
+                                        Delete
+                                    </button>
+                                </form>
+                            <?php endif; ?>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
