@@ -15,6 +15,7 @@ class StudentController extends BaseController
     {
         $this->db = db_connect();
     }
+
     public function index()
     {
         $studentsObject = $this->db->table('students');
